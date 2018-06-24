@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 
 public class LerInstrucoes 
 {
-
 	public static ArrayList<Instrucao> lerArquivo(String endereco) throws FileNotFoundException, IOException 
 	{		
 		File file = new File(endereco);
@@ -71,5 +70,4 @@ public class LerInstrucoes
 
 	    return retorno;
 	}
-
 }
