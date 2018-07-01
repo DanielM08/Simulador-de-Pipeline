@@ -38,7 +38,7 @@ public class LerInstrucoes
 				{
 					if(aux == 3 && (novaInst.getAcao().equals("lw") || novaInst.getAcao().equals("sw")) )
 					{
-						String reg = pegaRegistrador(fragmentoInst); //Deixa apenas o valor do registrador
+						String reg = capturaRegistrador(fragmentoInst); //Deixa apenas o valor do registrador
 						novaInst.setRegistrador(reg);					
 					}
 					else
@@ -57,7 +57,7 @@ public class LerInstrucoes
 		return instrucoes;
 	}
 	
-	private static String pegaRegistrador(String frag) 
+	private static String capturaRegistrador(String frag) 
 	{	
 	    String regex = "\\((?<meuGrupo>.*?)\\)";
 	    String retorno = "";

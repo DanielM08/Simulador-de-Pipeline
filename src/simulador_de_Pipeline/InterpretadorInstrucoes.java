@@ -36,8 +36,9 @@ public class InterpretadorInstrucoes
 			
 			if(acaoAtual.equals("sw"))
 			{
-				//Pega o registrador 1 da instrução SW
+				//Pega o registrador 1 e o 2 da instrução SW
 				String r1 = instrucoes.get(i).getRegistradores().get(0);							
+				String r2 = instrucoes.get(i).getRegistradores().get(1);
 				
 				//Verifica se esse registrador está sendo modificado em alguma instrução anterior
 				if(acaoInstAnterior.equals("sw")) 
@@ -45,32 +46,43 @@ public class InterpretadorInstrucoes
 					if(r1.equals(instrucoes.get(i-1).getRegistradores().get(1)))
 						defineInicioCiclo(4); //Instrução começa 4 ciclos depois da anterior a ela, pois houve dependência
 					else
-						defineInicioCiclo(1);
+					{
+						if(r2.equals(instrucoes.get(i-1).getRegistradores().get(1))) //Pos. de memória modificada
+							defineInicioCiclo(4);
+						else
+							defineInicioCiclo(1);
+					}
 				}
 				else
 				{
 					if(r1.equals(instrucoes.get(i-1).getRegistradores().get(0)))
 						defineInicioCiclo(4); 
 					else
-						defineInicioCiclo(1);
+					{
+						if(r2.equals(instrucoes.get(i-1).getRegistradores().get(0))) //Pos. de memória modificada
+							defineInicioCiclo(4);
+						else
+							defineInicioCiclo(1);
+					}
 				}
 			}
 			else 
 			{		
 				if(acaoAtual.equals("lw"))
 				{
+					String r1 = instrucoes.get(i).getRegistradores().get(0);
 					String r2 = instrucoes.get(i).getRegistradores().get(1);
 					
 					if(acaoInstAnterior.equals("sw")) 
 					{
-						if(r2.equals(instrucoes.get(i-1).getRegistradores().get(1)))
+						if(r1.equals(instrucoes.get(i-1).getRegistradores().get(1)) || r2.equals(instrucoes.get(i-1).getRegistradores().get(1)))
 							defineInicioCiclo(4); //Instrução começa 4 ciclos depois da anterior a ela, pois houve dependência
 						else
-							defineInicioCiclo(1);
+							defineInicioCiclo(1);							
 					}
 					else
 					{
-						if(r2.equals(instrucoes.get(i-1).getRegistradores().get(0)))
+						if(r1.equals(instrucoes.get(i-1).getRegistradores().get(0)) || r2.equals(instrucoes.get(i-1).getRegistradores().get(0)))
 							defineInicioCiclo(4); 
 						else
 							defineInicioCiclo(1);
@@ -157,8 +169,4 @@ public class InterpretadorInstrucoes
 		return inicioInst;
 	}
 	
-	public ArrayList<Instrucao> getInstrucoes()
-	{
-		return instrucoes;
-	}
 }

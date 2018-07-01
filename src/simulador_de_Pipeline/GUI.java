@@ -11,6 +11,9 @@ import java.util.Deque;
 
 public class GUI extends JFrame 
 {	
+	private final String CICLO_PREFIX = "Ciclo: ";
+	
+	private JLabel nCicloLabel;
 	private Estagios estgs;
 	InterpretadorInstrucoes iI;
 	
@@ -24,9 +27,13 @@ public class GUI extends JFrame
 		
 		estgs = new Estagios();
 		
+		nCicloLabel = new JLabel(CICLO_PREFIX, JLabel.CENTER);
+		nCicloLabel.setText(CICLO_PREFIX + "0/" + iI.getNumeroCiclos());
+		
 		JPanel controlPanel = makeFrame();
 						
-		Container contents = getContentPane();        
+		Container contents = getContentPane();
+		contents.add(nCicloLabel, BorderLayout.NORTH);
         contents.add(estgs, BorderLayout.CENTER);
         contents.add(controlPanel, BorderLayout.SOUTH);
 		
@@ -36,7 +43,7 @@ public class GUI extends JFrame
 	
 	public JPanel makeFrame()
 	{
-		JPanel contentPanel = new JPanel();
+		JPanel contentPanel = new JPanel(new FlowLayout());
 		
 		JButton b = new JButton("Prox. Ciclo");
 				
@@ -46,9 +53,14 @@ public class GUI extends JFrame
 		{					
 			public void actionPerformed(ActionEvent arg0) 
 			{	
+				if(estgs.getNCiclo() <= iI.getNumeroCiclos())				
+					nCicloLabel.setText(CICLO_PREFIX + estgs.getNCiclo() + "/" + iI.getNumeroCiclos());									
+				else				
+					nCicloLabel.setText("Todas as instruções foram executadas");
+				
 				int[] seqAnterior = estgs.getEstagios();
 				int[] seq = vetorColorir(iI.getInicioInt(), estgs.getNCiclo(), seqAnterior);								
-				
+
 				atualizaSequencia(seq);
 			}
 		});

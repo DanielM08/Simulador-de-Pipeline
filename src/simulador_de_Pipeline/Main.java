@@ -17,9 +17,17 @@ public class Main {
 		InterpretadorInstrucoes iI = new InterpretadorInstrucoes(path);
 		
 		GUI gui = new GUI(iI);
+				
+		System.out.println("Número de ciclos: " + iI.getNumeroCiclos());
 		
-		//int [] seq = {1, 1, 0, 0, 1};
-		//gui.atualizaSequencia(seq);
+		Deque<Integer> inicioInst = iI.getInicioInt();			
+		
+		int aux = 1;
+		for(int i : inicioInst)
+		{				
+			System.out.println("Inicio instrução " + aux + ": " + i);
+			aux++;
+		}
 	}	
 }
 

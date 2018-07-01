@@ -10,7 +10,7 @@ import simulador_de_Pipeline.InterpretadorInstrucoes;
 
 class TestInterpretadorInstrucoes {
 	
-	private final String path = "/home/danielmarx/Documents/eclipse/eclipse_workspace/simulador_de_Pipeline/data/dataTest";
+	private final String path = "/home/danielmarx/Documents/eclipse/eclipse_workspace/Simulador-de-Pipeline/data/dataTest2";
 	
 	@Test
 	void test() throws FileNotFoundException, IOException {
